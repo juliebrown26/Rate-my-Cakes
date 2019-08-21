@@ -4,4 +4,5 @@ module.exports = app => {
         app.get('/api/cakes/:id', cakeController.showOne);
         app.post('/api/cakes', cakeController.newCake);
         app.post('/api/comments', cakeController.newComment);
+        app.put('/api/cakes/:id', cakeController.updateCake);
 };

@@ -25,3 +25,10 @@ exports.newComment = (req, res) => {
         .then(comment => res.json(comment))
         .catch(err => res.json(err))
 }
+
+exports.updateCake = (req, res) => {
+    console.log("update cake");
+    Cake.findOneAndUpdate({_id: req.body._id}, req.body, {new: true})
+    .then(cake => res.json(cake))
+    .catch(err => res.json(err));
+}

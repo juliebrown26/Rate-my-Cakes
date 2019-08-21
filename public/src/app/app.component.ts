@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CakeService } from './cake.service';
 import { Cake } from './cake';
-import { isNullOrUndefined } from 'util';
+import { Comment } from './comment';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
   ngOnInit(){
     this.getCakes();
     this.newCake = {name: '', image: '', comments: []};
-    this.newComment = {rating: '', content: ''}
+    this.newComment = {rating: '5', content: ''}
   }
   onSubmit(){
     let observable = this._cakeService.addCake(this.newCake);
@@ -37,10 +37,11 @@ export class AppComponent implements OnInit {
       this.cakes = data;
     })
   }
-  onSubmitComment(){
+  onSubmitComment(cake: Cake){
     console.log('submitting comment');
-    let observable = this._cakeService.newComment(this.newComment);
-    observable.subscribe((data: Comment) => {
+    cake.comments.push(this.newComment);
+    let observable = this._cakeService.updateCake(cake);
+    observable.subscribe((data: Cake) => {
       this.newComment = {rating: '', content: ''};
     })
   }
@@ -54,4 +55,4 @@ export class AppComponent implements OnInit {
       this.cake = data;
     })
   }
-}
+};

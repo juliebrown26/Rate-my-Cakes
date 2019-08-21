@@ -17,6 +17,9 @@ export class CakeService {
      return this._cake.post('/api/cakes', newCake);
    }
    newComment(newComment){
-     return this._cake.post('/api/comments', newComment)
+     return this._cake.post('/api/comments', newComment);
+   }
+   updateCake(cake:Cake){
+     return this._cake.put(`/api/cakes/${cake._id}`, cake);
    }
 }

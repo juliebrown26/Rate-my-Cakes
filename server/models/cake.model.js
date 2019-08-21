@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const CommentSchema = new mongoose.Schema({
-    rating: Number,
+    rating: String,
     content: String,
 }, {timestamps: true});
 const CakeSchema = new mongoose.Schema({

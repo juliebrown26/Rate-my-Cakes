@@ -19,37 +19,37 @@
       <div class="row">
         <div class="col-lg-4" style="border: 1px solid black; padding-bottom: 10px; height: 250px;">
           <h4 style="color: gray">Submit a cake to be rated</h4>
-          <form (submit)="onSubmit()" class="postForm">
+          <div  class="postForm">
             <label>
               Baker name:<br>
-              <input type="text" name="newCake.name"
+              <input type="text"
               [(ngModel)]="newCake.name">
             </label><br>
             <label>
               Image URL:<br>
-            <input type="text" name="newCake.image"
+            <input type="text"
               [(ngModel)]="newCake.image">
             </label><br>
-            <input type="submit" value="Submit"> 
-          </form>
+            <input type="submit" value="Submit" (click)="onSubmit()"> 
+          </div>
         </div>
         <div class="col-lg-8" style="border: 1px solid black; height: 250px; overflow-y: scroll;">
             <div class="row" style="margin: 5px" *ngFor="let cake of cakes">
               <div class="col-lg-4">
-                <img src="{{ cake.image }}" (click)="onCakeClick(cake)" style="width: 200px">
+                <img [src]="cake.image" (click)="onCakeClick(cake)" style="width: 200px">
               </div>
               <div class="col-lg-8">
-                <form (submit)='onSubmitComment(cake)'>
-                  <select name="comment.rating">
+                <div >
+                  <select name="rating" [(ngModel)]="newComment.rating">
                     <option value="5">5 stars</option>
                     <option value="4">4 stars</option>
                     <option value="3">3 stars</option>
                     <option value="2">2 stars</option>
                     <option value="1">1 stars</option>
                   </select><br>
-                  <textarea name="comment.content" rows="3" cols="30">Type your comment here</textarea><br>
-                  <input type="submit" value="Rate!">
-                </form>
+                  <textarea name="content" [(ngModel)]="newComment.content" rows="3" cols="30">Type your comment here</textarea><br>
+                  <input type="submit" value="Rate!" (click)='onSubmitComment(cake)'>
+                </div>
               </div>
             </div>
           </div>
@@ -60,13 +60,19 @@
         </div>
         <div class="row">
           <div class="col-lg-6">
-            <img src="{{ cake.image }}" style="width: 400px">
+            <img [src]="cake.image" style="width: 400px">
           </div>
           <div class="col-lg-6">
-            comment here
+            <h4>Average rating: </h4>
+            <hr>
+            <div *ngFor="let comment of cake.comments">
+              <h3>{{ comment.content }}</h3>
+              <h3>{{ comment.rating }} stars</h3>
+              <hr>
+            </div>
+          </div>
           </div>
         </div>
       </div> 
-    </div>
   </body>
 </html>
