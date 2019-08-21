@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <title>Rate my Cakes</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <h1>Rate My Cakes</h1>
+      </div>
+      <div class="row">
+        <div class="col-lg-4" style="border: 1px solid black; padding-bottom: 10px; height: 250px;">
+          <h4 style="color: gray">Submit a cake to be rated</h4>
+          <form (submit)="onSubmit()" class="postForm">
+            <label>
+              Baker name:<br>
+              <input type="text" name="newCake.name"
+              [(ngModel)]="newCake.name">
+            </label><br>
+            <label>
+              Image URL:<br>
+            <input type="text" name="newCake.image"
+              [(ngModel)]="newCake.image">
+            </label><br>
+            <input type="submit" value="Submit"> 
+          </form>
+        </div>
+        <div class="col-lg-8" style="border: 1px solid black; height: 250px; overflow-y: scroll;">
+            <div class="row" style="margin: 5px" *ngFor="let cake of cakes">
+              <div class="col-lg-4">
+                <img src="{{ cake.image }}" (click)="onCakeClick(cake)" style="width: 200px">
+              </div>
+              <div class="col-lg-8">
+                <form (submit)='onSubmitComment(cake)'>
+                  <select name="comment.rating">
+                    <option value="5">5 stars</option>
+                    <option value="4">4 stars</option>
+                    <option value="3">3 stars</option>
+                    <option value="2">2 stars</option>
+                    <option value="1">1 stars</option>
+                  </select><br>
+                  <textarea name="comment.content" rows="3" cols="30">Type your comment here</textarea><br>
+                  <input type="submit" value="Rate!">
+                </form>
+              </div>
+            </div>
+          </div>
+          </div>
+      <div class="row" *ngIf="cake">
+        <div class="row">
+            <h2>Baked By {{ cake.name }}</h2>
+        </div>
+        <div class="row">
+          <div class="col-lg-6">
+            <img src="{{ cake.image }}" style="width: 400px">
+          </div>
+          <div class="col-lg-6">
+            comment here
+          </div>
+        </div>
+      </div> 
+    </div>
+  </body>
+</html>
